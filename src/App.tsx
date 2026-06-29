@@ -127,11 +127,11 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 const surfaceColors = {
   ivory: '#F4F1EC',
-  parchment: '#E4DDD2',
-  mist: '#E5E8E2',
-  sand: '#D5CBBB',
-  chalk: '#FAF8F3',
-  stone: '#CBC4B8',
+  parchment: '#E2D5C7',
+  mist: '#DDE3DC',
+  sand: '#CFBEAA',
+  chalk: '#F8F5EE',
+  stone: '#C7BDB0',
 } as const
 
 function Logo({
@@ -143,7 +143,7 @@ function Logo({
 }: {
   compact?: boolean
   inverse?: boolean
-  size?: 'nav' | 'loader'
+  size?: 'nav' | 'loader' | 'rail'
   durationScale?: number
   play?: boolean
 }) {
@@ -161,7 +161,7 @@ function Logo({
 
   return (
     <motion.svg
-      className={`group block overflow-visible ${size === 'loader' ? 'h-auto w-[min(68vw,22rem)]' : 'h-12 w-[8.8rem]'} ${inverse ? 'text-ivory' : 'text-charcoal'}`}
+      className={`group block overflow-visible ${size === 'loader' ? 'h-auto w-[min(68vw,22rem)]' : size === 'rail' ? 'h-10 w-[6.25rem]' : 'h-12 w-[8.8rem]'} ${inverse ? 'text-ivory' : 'text-charcoal'}`}
       viewBox="0 0 176 58"
       role="img"
       aria-label="brdge"
@@ -512,34 +512,63 @@ function App() {
 
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>('[data-surface]')
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        const surface = visible?.target.getAttribute('data-surface') as keyof typeof surfaceColors | null
-        if (surface && surface in surfaceColors) setActiveSurface(surface)
-      },
-      { rootMargin: '-20% 0px -20% 0px', threshold: [0, 0.2, 0.45, 0.7] },
-    )
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
+    let animationFrame = 0
+
+    const updateSurface = () => {
+      animationFrame = 0
+      const anchor = window.innerHeight * 0.46
+      let closestSurface: keyof typeof surfaceColors | null = null
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      sections.forEach((section) => {
+        const bounds = section.getBoundingClientRect()
+        if (bounds.top <= anchor && bounds.bottom >= anchor) {
+          closestSurface = section.getAttribute('data-surface') as keyof typeof surfaceColors | null
+          closestDistance = 0
+          return
+        }
+        const distance = Math.min(Math.abs(bounds.top - anchor), Math.abs(bounds.bottom - anchor))
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestSurface = section.getAttribute('data-surface') as keyof typeof surfaceColors | null
+        }
+      })
+
+      if (closestSurface && closestSurface in surfaceColors) setActiveSurface(closestSurface)
+    }
+
+    const handleViewportChange = () => {
+      if (!animationFrame) animationFrame = window.requestAnimationFrame(updateSurface)
+    }
+
+    updateSurface()
+    window.addEventListener('scroll', handleViewportChange, { passive: true })
+    window.addEventListener('resize', handleViewportChange)
+    return () => {
+      window.removeEventListener('scroll', handleViewportChange)
+      window.removeEventListener('resize', handleViewportChange)
+      if (animationFrame) window.cancelAnimationFrame(animationFrame)
+    }
   }, [])
 
   return (
     <motion.div
-      className="min-h-screen overflow-x-clip text-charcoal lg:pl-[156px]"
+      className="min-h-screen overflow-x-clip text-charcoal lg:pl-[112px]"
       animate={{ backgroundColor: surfaceColors[activeSurface] }}
-      transition={{ duration: reduceMotion ? 0.01 : 1.15, ease }}
+      transition={{ duration: reduceMotion ? 0.01 : 0.85, ease }}
     >
       <AnimatePresence>{showLoader ? <BrandLoader /> : null}</AnimatePresence>
       <a href="#main" className="fixed left-4 top-3 z-[100] -translate-y-20 bg-charcoal px-4 py-3 text-sm text-ivory transition-transform focus:translate-y-0">Skip to content</a>
       <motion.div className="fixed left-0 top-0 z-[70] h-[2px] w-full origin-left bg-bronze lg:hidden" style={{ scaleX: progress }} />
 
-      <aside className="fixed bottom-0 left-0 top-0 z-[80] hidden w-[156px] flex-col border-r border-charcoal/15 transition-[background-color] duration-1000 ease-out lg:flex" style={{ backgroundColor: surfaceColors[activeSurface] }}>
+      <motion.aside
+        className="fixed bottom-0 left-0 top-0 z-[80] hidden w-[112px] flex-col border-r border-charcoal/15 lg:flex"
+        animate={{ backgroundColor: surfaceColors[activeSurface] }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.85, ease }}
+      >
         <motion.div className="absolute right-[-1px] top-0 h-full w-[2px] origin-top bg-bronze" style={{ scaleY: progress }} />
         <a href="#main" aria-label="brdge home" className="flex h-32 items-center justify-center overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-bronze">
-          <Logo durationScale={2} play={!showLoader} />
+          <Logo size="rail" durationScale={2} play={!showLoader} />
         </a>
         <nav aria-label="Primary navigation" className="flex flex-1 flex-col items-center justify-center gap-8 py-6">
           {navItems.map((item, index) => (
@@ -554,7 +583,7 @@ function App() {
           ))}
         </nav>
         <a href="#review" className="vertical-rail-cta"><span>Request</span><span>Review</span></a>
-      </aside>
+      </motion.aside>
 
       <header className="sticky top-0 z-50 border-b border-stone/80 backdrop-blur-sm transition-[background-color] duration-1000 ease-out lg:hidden" style={{ backgroundColor: surfaceColors[activeSurface] }}>
         <div className="page-grid flex h-[82px] items-center justify-between">
