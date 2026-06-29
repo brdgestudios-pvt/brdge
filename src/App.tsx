@@ -297,7 +297,7 @@ function AuditCanvas() {
 
   return (
     <motion.div
-      className="relative min-h-[34rem] overflow-hidden border border-charcoal/15 bg-charcoal p-6 text-ivory md:p-9"
+      className="relative min-h-[24rem] overflow-hidden border border-charcoal/15 bg-charcoal p-4 text-ivory md:min-h-[34rem] md:p-9"
       initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(8% 0 0 0)' }}
       whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
       viewport={{ once: true }}
@@ -306,30 +306,30 @@ function AuditCanvas() {
       <div className="flex items-center justify-between border-b border-white/20 pb-5 text-[0.58rem] uppercase tracking-[0.22em] text-white/45">
         <span>Website perception audit</span><span>Before / after</span>
       </div>
-      <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto_1fr] md:items-center">
-        <div className="border border-white/15 p-4">
+      <div className="mt-7 grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:mt-10 md:gap-8">
+        <div className="border border-white/15 p-3 md:p-4">
           <p className="text-[0.58rem] uppercase tracking-[0.2em] text-white/35">Current state</p>
           <div className="mt-6 grid grid-cols-3 gap-2 opacity-45">
-            {[1, 2, 3, 4, 5, 6].map((item) => <span key={item} className={`block bg-white/20 ${item === 1 || item === 5 ? 'col-span-2 h-20' : 'h-20'}`} />)}
+            {[1, 2, 3, 4, 5, 6].map((item) => <span key={item} className={`block bg-white/20 ${item === 1 || item === 5 ? 'col-span-2 h-12 md:h-20' : 'h-12 md:h-20'}`} />)}
           </div>
         </div>
         <motion.div
-          className="h-px w-full origin-left bg-bronze md:h-24 md:w-px md:origin-top"
+          className="h-px w-6 origin-left bg-bronze md:h-24 md:w-px md:origin-top"
           initial={reduceMotion ? false : { scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
           aria-hidden="true"
         />
-        <div className="border border-bronze/45 bg-ivory p-4 text-charcoal">
+        <div className="border border-bronze/45 bg-ivory p-3 text-charcoal md:p-4">
           <p className="text-[0.58rem] uppercase tracking-[0.2em] text-bronze">Refined system</p>
           <div className="mt-6 grid grid-cols-4 gap-2">
-            <span className="col-span-4 h-28 bg-taupe/55" />
-            {[1, 2, 3, 4].map((item) => <motion.span key={item} className="h-14 bg-stone" initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.55 + item * 0.08, duration: 0.5, ease }} />)}
+            <span className="col-span-4 h-20 bg-taupe/55 md:h-28" />
+            {[1, 2, 3, 4].map((item) => <motion.span key={item} className="h-9 bg-stone md:h-14" initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.55 + item * 0.08, duration: 0.5, ease }} />)}
           </div>
         </div>
       </div>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      <div className="mt-8 hidden gap-4 sm:grid sm:grid-cols-2 md:mt-10">
         {rows.map((row, index) => (
           <div key={row} className="border-t border-white/15 pt-3">
             <div className="flex items-center justify-between text-[0.62rem] uppercase tracking-[0.16em] text-white/55"><span>{row}</span><span className="text-bronze">Resolved</span></div>
@@ -346,7 +346,7 @@ function ServiceVisual({ index }: { index: number }) {
   const delay = (item: number) => 0.12 + item * 0.08
 
   return (
-    <div className="relative h-36 overflow-hidden border border-charcoal/15 bg-ivory/55 p-4 md:h-44">
+    <div className="relative h-28 overflow-hidden border border-charcoal/15 bg-ivory/55 p-3 md:h-44 md:p-4">
       <div className="mb-3 flex gap-1" aria-hidden="true"><span className="h-1.5 w-1.5 rounded-full bg-charcoal/25" /><span className="h-1.5 w-1.5 rounded-full bg-charcoal/15" /><span className="h-1.5 w-1.5 rounded-full bg-bronze" /></div>
       {index === 0 ? (
         <div className="grid h-[calc(100%-1rem)] grid-cols-4 gap-1.5">
@@ -376,7 +376,7 @@ function ProjectPreview({ src, alt, index }: { src: string; alt: string; index: 
 
   return (
     <motion.figure
-      className="group relative min-h-[25rem] overflow-hidden border border-charcoal/15 bg-charcoal p-3 lg:col-span-6"
+      className="group relative min-h-[17rem] overflow-hidden border border-charcoal/15 bg-charcoal p-2.5 md:min-h-[25rem] md:p-3 lg:col-span-6"
       initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(6% 0 0 0)' }}
       whileInView={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
       viewport={{ once: true, margin: '-8% 0px' }}
@@ -400,7 +400,7 @@ function ProjectPreview({ src, alt, index }: { src: string; alt: string; index: 
 function ReviewCanvas() {
   const reduceMotion = useReducedMotion()
   return (
-    <div className="flex min-h-[28rem] items-center justify-center p-8 lg:p-14">
+    <div className="flex min-h-[20rem] items-center justify-center p-5 md:p-8 lg:min-h-[28rem] lg:p-14">
       <motion.div className="w-full max-w-xl border border-charcoal/20 bg-ivory p-6" initial={reduceMotion ? false : { opacity: 0, rotate: -1.5, y: 25 }} whileInView={{ opacity: 1, rotate: 0, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }}>
         <div className="flex items-center justify-between border-b border-stone pb-5"><span className="text-[0.6rem] uppercase tracking-[0.2em]">Website review</span><span className="h-2 w-2 rounded-full bg-bronze" /></div>
         {['Visual hierarchy', 'Mobile experience', 'Portfolio structure', 'Enquiry flow'].map((label, index) => (
@@ -418,7 +418,7 @@ function WorkflowDiagram() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <div className="relative mt-16">
+    <div className="relative mt-10 md:mt-16">
       <motion.div
         className="absolute left-[8.33%] right-[8.33%] top-[1.12rem] hidden h-px origin-left bg-bronze/55 md:block"
         initial={reduceMotion ? false : { scaleX: 0 }}
@@ -427,25 +427,17 @@ function WorkflowDiagram() {
         transition={{ duration: 1.5, ease }}
         aria-hidden="true"
       />
-      <motion.div
-        className="absolute bottom-4 left-[1.12rem] top-4 w-px origin-top bg-bronze/55 md:hidden"
-        initial={reduceMotion ? false : { scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4, ease }}
-        aria-hidden="true"
-      />
-      <ol className="grid gap-0 md:grid-cols-3 xl:grid-cols-6">
+      <ol className="grid grid-cols-2 gap-0 md:grid-cols-3 xl:grid-cols-6">
         {workflowSteps.map((step, index) => (
           <motion.li
             key={step.title}
-            className="relative grid min-h-52 grid-cols-[2.25rem_1fr] gap-5 border-b border-stone py-7 md:block md:min-h-[20rem] md:border-b-0 md:border-l md:px-5 md:pt-0 first:md:border-l-0 first:md:pl-0 last:md:pr-0"
+            className="relative min-h-0 border-b border-l border-stone px-3 py-5 odd:border-l-0 md:block md:min-h-[20rem] md:border-b-0 md:border-l md:px-5 md:pt-0 md:odd:border-l first:md:border-l-0 first:md:pl-0 last:md:pr-0"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.75, delay: index * 0.09, ease }}
           >
-            <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full border border-bronze bg-ivory text-[0.58rem] font-medium tracking-[0.14em] text-charcoal md:mx-auto md:mb-10">
+            <div className="relative z-10 mb-6 flex h-9 w-9 items-center justify-center rounded-full border border-bronze bg-ivory text-[0.58rem] font-medium tracking-[0.14em] text-charcoal md:mx-auto md:mb-10">
               {String(index + 1).padStart(2, '0')}
               <motion.span
                 className="absolute inset-[-5px] rounded-full border border-bronze/30"
@@ -457,8 +449,8 @@ function WorkflowDiagram() {
             <div className="md:pt-0">
               <p className="mb-4 text-[0.58rem] font-medium uppercase tracking-[0.22em] text-bronze">Phase {String(index + 1).padStart(2, '0')}</p>
               <h3 className="font-display text-2xl font-light tracking-[-0.04em]">{step.title}</h3>
-              <p className="mt-4 text-sm leading-6 text-charcoal/60">{step.copy}</p>
-              <p className="mt-7 border-t border-stone pt-3 text-[0.6rem] uppercase tracking-[0.18em] text-charcoal/45">{step.output}</p>
+              <p className="mt-4 hidden text-sm leading-6 text-charcoal/60 md:block">{step.copy}</p>
+              <p className="mt-4 border-t border-stone pt-3 text-[0.56rem] uppercase tracking-[0.14em] text-charcoal/45 md:mt-7 md:text-[0.6rem] md:tracking-[0.18em]">{step.output}</p>
             </div>
           </motion.li>
         ))}
@@ -612,7 +604,7 @@ function App() {
 
       <main id="main">
         <section data-surface="ivory" className="page-grid grid min-h-[calc(100svh-82px)] grid-cols-1 border-b border-stone lg:min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex min-w-0 flex-col justify-between gap-10 py-10 lg:py-12 lg:pr-16 xl:py-16">
+          <div className="flex min-w-0 flex-col justify-between gap-7 py-8 lg:gap-10 lg:py-12 lg:pr-16 xl:py-16">
             <div>
               <motion.p
                 className="mb-8 flex items-center gap-3 text-[0.62rem] font-medium uppercase tracking-[0.24em] text-charcoal/55"
@@ -642,7 +634,7 @@ function App() {
             </motion.div>
           </div>
           <motion.figure
-            className="hero-image relative min-h-[55svh] overflow-hidden lg:-mr-[max(1.5rem,calc((100vw-1440px)/2))] lg:min-h-full"
+            className="hero-image relative min-h-[38svh] overflow-hidden md:min-h-[48svh] lg:-mr-[max(1.5rem,calc((100vw-1440px)/2))] lg:min-h-full"
             initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(0 0 0 10%)' }}
             animate={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
             transition={{ duration: 1.05, delay: 0.16, ease }}
@@ -683,11 +675,11 @@ function App() {
           <Reveal className="min-w-0 lg:col-span-6">
             <p className="section-label">The gap</p>
             <h2 id="problem-title" className="section-title max-w-[12ch]">Your work may be premium. Your website may not be proving it.</h2>
-            <ol className="mt-14 border-t border-stone">
+            <ol className="mt-8 border-t border-stone md:mt-14">
               {problems.map((problem, index) => (
                 <motion.li
                   key={problem}
-                  className="problem-row group relative grid grid-cols-[3rem_1fr] items-center gap-4 overflow-hidden border-b border-stone py-5 md:grid-cols-[4rem_1fr]"
+                  className="problem-row group relative grid grid-cols-[3rem_1fr] items-center gap-4 overflow-hidden border-b border-stone py-4 md:grid-cols-[4rem_1fr] md:py-5"
                   initial={reduceMotion ? false : { opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -713,9 +705,9 @@ function App() {
               <ImageReveal src="/images/studio-process.jpg" alt="A six-stage web design process from research and structure through build and launch" className="aspect-[16/9]" />
             </Reveal>
           </div>
-          <div className="mt-16 grid gap-0 md:grid-cols-3">
+          <div className="mt-10 grid gap-0 md:mt-16 md:grid-cols-3">
             {pillars.map((pillar, index) => (
-              <Reveal key={pillar.title} delay={index * 0.1} className="pillar relative border-t border-stone py-8 md:min-h-64 md:border-l md:border-t md:px-8 first:md:border-l-0 first:md:pl-0 last:md:pr-0">
+              <Reveal key={pillar.title} delay={index * 0.1} className="pillar relative border-t border-stone py-6 md:min-h-64 md:border-l md:border-t md:px-8 md:py-8 first:md:border-l-0 first:md:pl-0 last:md:pr-0">
                 <div className="mb-10 flex items-center gap-4">
                   <span className="font-display text-3xl text-bronze">{String(index + 1).padStart(2, '0')}</span>
                   <span className="h-px flex-1 bg-bronze/60" />
@@ -725,7 +717,7 @@ function App() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-24 border-t border-stone pt-14">
+          <Reveal className="mt-16 border-t border-stone pt-10 md:mt-24 md:pt-14">
             <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
                 <p className="section-label">How we work</p>
@@ -745,11 +737,11 @@ function App() {
             </div>
             <p className="max-w-lg text-base leading-7 text-charcoal/65 lg:col-span-5 lg:pb-2">Three focused ways to make your studio easier to trust, understand, and contact.</p>
           </Reveal>
-          <div className="mt-14 border-t border-stone">
+          <div className="mt-8 border-t border-stone md:mt-14">
             {services.map((service, index) => (
               <Reveal key={service.title}>
                 <motion.article
-                  className="service-row group grid min-w-0 gap-6 border-b border-stone py-8 md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(15rem,1fr)_2rem] md:items-center"
+                  className="service-row group grid min-w-0 gap-5 border-b border-stone py-6 md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(15rem,1fr)_2rem] md:items-center md:gap-6 md:py-8"
                 >
                   <span className="font-display text-4xl text-bronze">{String(index + 1).padStart(2, '0')}</span>
                   <div className="min-w-0">
@@ -773,17 +765,17 @@ function App() {
               </div>
               <p className="max-w-md text-base leading-7 text-white/55 lg:col-span-4">The visible polish matters because the invisible system beneath it is resolved with equal care.</p>
             </Reveal>
-            <div className="mt-20 grid border-t border-white/20 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid grid-cols-2 border-t border-white/20 md:mt-20 md:grid-cols-2 xl:grid-cols-4">
               {qualityPrinciples.map(([title, copy], index) => (
                 <motion.article
                   key={title}
-                  className="relative min-h-64 border-b border-white/20 py-8 md:border-l md:px-7 first:md:border-l-0 first:md:pl-0 xl:border-b-0 last:md:pr-0"
+                  className="relative min-h-44 border-b border-l border-white/20 px-3 py-6 odd:border-l-0 md:min-h-64 md:px-7 md:py-8 first:md:border-l-0 first:md:pl-0 xl:border-b-0 last:md:pr-0"
                   initial={reduceMotion ? false : { opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.75, delay: index * 0.1, ease }}
                 >
-                  <div className="mb-12 flex items-center gap-4">
+                  <div className="mb-8 flex items-center gap-4 md:mb-12">
                     <span className="text-[0.6rem] tracking-[0.2em] text-bronze">0{index + 1}</span>
                     <motion.span
                       className="h-px flex-1 origin-left bg-bronze/65"
@@ -794,7 +786,7 @@ function App() {
                     />
                   </div>
                   <h3 className="max-w-[12ch] font-display text-2xl font-light tracking-[-0.04em]">{title}</h3>
-                  <p className="mt-5 max-w-xs text-sm leading-6 text-white/50">{copy}</p>
+                  <p className="mt-5 hidden max-w-xs text-sm leading-6 text-white/50 sm:block">{copy}</p>
                   <motion.span
                     className="absolute bottom-8 left-0 h-1.5 w-1.5 rounded-full bg-bronze md:left-7"
                     animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scale: [0.8, 1.15, 0.8] }}
@@ -808,7 +800,7 @@ function App() {
         </section>
 
         <section data-surface="chalk" id="work" className="page-grid section-space scroll-mt-24" aria-labelledby="work-title">
-          <Reveal className="mb-14 flex items-end justify-between gap-8 border-b border-stone pb-8">
+          <Reveal className="mb-8 flex items-end justify-between gap-8 border-b border-stone pb-6 md:mb-14 md:pb-8">
             <div>
               <p className="section-label">Selected work</p>
               <h2 id="work-title" className="font-display text-[clamp(3rem,5.4vw,5.75rem)] font-light leading-[1.05] tracking-[-0.055em]">Selected work</h2>
@@ -818,15 +810,15 @@ function App() {
           <div>
             {projects.map((project, index) => (
               <Reveal key={project.title}>
-                <article className="project-row grid min-w-0 gap-8 border-b border-stone py-10 lg:grid-cols-12 lg:items-stretch">
+                <article className="project-row grid min-w-0 gap-6 border-b border-stone py-7 md:gap-8 md:py-10 lg:grid-cols-12 lg:items-stretch">
                   <div className="min-w-0 lg:col-span-2">
                     <span className="text-[0.62rem] font-medium uppercase tracking-[0.22em] text-bronze">Study {String(index + 1).padStart(2, '0')}</span>
                     <h3 className="mt-7 max-w-[12ch] font-display text-3xl font-light leading-[1.15] tracking-[-0.04em] md:text-4xl">{project.title}</h3>
                   </div>
                   <ProjectPreview src={project.image} alt={project.alt} index={index} />
                   <dl className="grid min-w-0 content-start gap-5 lg:col-span-4 lg:border-l lg:border-stone lg:pl-8">
-                    {project.meta.map(([label, value]) => (
-                      <div key={label}>
+                    {project.meta.map(([label, value], metaIndex) => (
+                      <div key={label} className={metaIndex > 1 ? 'hidden sm:block' : ''}>
                         <dt className="text-[0.62rem] font-semibold uppercase tracking-[0.2em]">{label}</dt>
                         <dd className="mt-1 max-w-md text-sm leading-5 text-charcoal/65">{value}</dd>
                       </div>
@@ -839,8 +831,8 @@ function App() {
         </section>
 
         <section data-surface="stone" id="review" className="scroll-mt-24 border-t border-stone" aria-labelledby="review-title">
-          <div className="grid min-h-[70svh] lg:grid-cols-2">
-            <div className="page-grid-left flex flex-col justify-center gap-9 py-20 lg:py-28">
+          <div className="grid lg:min-h-[70svh] lg:grid-cols-2">
+            <div className="page-grid-left flex flex-col justify-center gap-9 py-14 lg:py-28">
               <Reveal>
                 <p className="section-label">Website review</p>
                 <h2 id="review-title" className="section-title max-w-[12ch]">Not sure if your website is helping or hurting your studio?</h2>
@@ -854,7 +846,7 @@ function App() {
       </main>
 
       <footer className="bg-charcoal text-ivory">
-        <div className="page-grid py-14 md:py-20">
+        <div className="page-grid py-10 md:py-20">
           <div className="grid gap-12 border-b border-white/20 pb-12 md:grid-cols-[1fr_1.2fr] md:items-center">
             <div className="flex items-center gap-6">
               <Logo compact inverse />

@@ -282,6 +282,14 @@ h3 {
   .page-grid-left {
     padding-inline: 1rem;
   }
+
+  .section-space {
+    padding-block: 3.75rem;
+  }
+
+  .section-label {
+    margin-bottom: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
