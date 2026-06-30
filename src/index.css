@@ -194,7 +194,8 @@ h3 {
 }
 
 .button-solid,
-.button-outline {
+.button-outline,
+.button-light {
   position: relative;
   overflow: hidden;
   min-height: 48px;
@@ -216,6 +217,12 @@ h3 {
   background: #1a1a1a;
 }
 
+.button-light {
+  color: #1a1a1a;
+  border-color: #f4f1ec;
+  background: #f4f1ec;
+}
+
 .button-solid:hover {
   border-color: #8a8267;
   background: #8a8267;
@@ -226,9 +233,23 @@ h3 {
   background: #1a1a1a;
 }
 
+.button-light:hover {
+  color: #f4f1ec;
+  border-color: #8a8267;
+  background: #8a8267;
+}
+
 .button-solid:focus-visible,
-.button-outline:focus-visible {
+.button-outline:focus-visible,
+.button-light:focus-visible {
   box-shadow: 0 0 0 2px #f4f1ec, 0 0 0 4px #8a8267;
+}
+
+.hero-canvas-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, #1a1a1a 15%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, #1a1a1a 15%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
 }
 
 .service-row {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ArrowDownRight, ArrowUpRight, List, X } from '@phosphor-icons/react'
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'motion/react'
 
 const navItems = [
   { label: 'Work', href: '#work' },
@@ -464,7 +464,7 @@ function SplitHeadline() {
   const words = 'Premium portfolio websites for architects and interior designers.'.split(' ')
   return (
     <motion.h1
-      className="hero-title max-w-[15ch] font-display text-[clamp(2.65rem,4.1vw,4.85rem)] font-light leading-[1.02] tracking-[-0.055em]"
+      className="hero-title max-w-[13ch] font-display text-[clamp(3rem,5.4vw,6.5rem)] font-light leading-[0.96] tracking-[-0.06em]"
       initial="hidden"
       animate="visible"
       variants={{ visible: { transition: { staggerChildren: 0.045, delayChildren: 0.08 } } }}
@@ -479,6 +479,168 @@ function SplitHeadline() {
         </span>
       ))}
     </motion.h1>
+  )
+}
+
+function HeroWorkflow() {
+  const reduceMotion = useReducedMotion()
+  const phases = ['Strategy', 'Structure', 'Design', 'Build']
+
+  return (
+    <motion.div
+      className="absolute bottom-4 left-4 right-4 border border-charcoal/20 bg-ivory/95 p-3 text-charcoal shadow-[0_16px_45px_rgba(26,26,26,.1)] md:bottom-5 md:left-5 md:right-5 md:p-4"
+      initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.85, delay: 0.75, ease }}
+      role="img"
+      aria-label="Brdge workflow: Strategy, Structure, Design, Build"
+    >
+      <div className="flex items-center justify-between text-[0.48rem] uppercase tracking-[0.2em] text-charcoal/45 md:text-[0.54rem]">
+        <span>Live studio workflow</span>
+        <span className="flex items-center gap-2"><motion.i className="h-1.5 w-1.5 rounded-full bg-bronze" animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scale: [0.85, 1.2, 0.85] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />System active</span>
+      </div>
+      <div className="relative mt-3">
+        <svg viewBox="0 0 1000 28" className="h-7 w-full overflow-visible" aria-hidden="true">
+          <path d="M55 14H945" fill="none" stroke="rgba(26,26,26,.16)" strokeWidth="2" />
+          <motion.path
+            d="M55 14H945"
+            fill="none"
+            stroke="#8A8267"
+            strokeWidth="2"
+            initial={reduceMotion ? false : { pathLength: 0 }}
+            animate={reduceMotion ? { pathLength: 1 } : { pathLength: [0, 1, 1, 0] }}
+            transition={{ duration: 42, times: [0, 0.72, 0.9, 1], repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {[55, 352, 648, 945].map((cx) => <circle key={cx} cx={cx} cy="14" r="5" fill="#F4F1EC" stroke="#8A8267" strokeWidth="2" />)}
+          <motion.circle
+            cx="55"
+            cy="14"
+            r="7"
+            fill="#8A8267"
+            animate={reduceMotion ? undefined : { cx: [55, 352, 648, 945, 55] }}
+            transition={{ duration: 42, times: [0, 0.28, 0.56, 0.84, 1], repeat: Infinity, ease }}
+          />
+        </svg>
+        <div className="grid grid-cols-4 gap-1 text-[0.46rem] uppercase tracking-[0.12em] text-charcoal/65 md:text-[0.55rem] md:tracking-[0.17em]">
+          {phases.map((phase, index) => (
+            <motion.span
+              key={phase}
+              className={index === 0 ? 'text-left' : index === phases.length - 1 ? 'text-right' : 'text-center'}
+              animate={reduceMotion ? undefined : { opacity: [0.42, 1, 0.42] }}
+              transition={{ duration: 22, delay: index * 9, repeat: Infinity, ease: 'easeInOut' }}
+            >{phase}</motion.span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function HeroDesignCanvas() {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#f7f4ee]" aria-hidden="true">
+      <motion.div
+        className="hero-canvas-grid absolute -inset-[10%] opacity-55"
+        animate={reduceMotion ? undefined : { x: [0, 72], y: [0, 72] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_38%,rgba(217,214,207,.7),transparent_32%),linear-gradient(90deg,rgba(247,244,238,.98)_0%,rgba(247,244,238,.9)_45%,rgba(247,244,238,.28)_78%,rgba(247,244,238,.62)_100%)]" />
+
+      <motion.div
+        className="absolute right-[-3rem] top-[12.5rem] h-[17rem] w-[13.5rem] border border-charcoal/25 bg-ivory/75 p-2 opacity-55 shadow-[8px_8px_0_rgba(182,173,160,.28)] md:hidden"
+        animate={reduceMotion ? undefined : { x: [0, 0, -36, -36, 0], y: [0, 0, 0, 72, 0] }}
+        transition={{ duration: 17, times: [0, 0.16, 0.38, 0.68, 1], repeat: Infinity, ease }}
+      >
+        <div className="flex h-6 items-center justify-between bg-charcoal px-2 text-[0.38rem] uppercase tracking-[0.16em] text-white/55">
+          <span>Portfolio / 04</span><span className="h-1 w-1 bg-bronze" />
+        </div>
+        <div className="mt-2 grid h-[12.5rem] grid-cols-4 grid-rows-4 gap-1.5">
+          <img src="/images/hero.webp" alt="" className="col-span-3 row-span-2 h-full w-full object-cover opacity-70" />
+          <span className="row-span-2 bg-taupe/55" />
+          <span className="col-span-2 bg-stone/80" />
+          <span className="bg-bronze/55" />
+          <span className="bg-charcoal/75" />
+          <span className="col-span-3 bg-charcoal/12" />
+          <span className="bg-taupe/65" />
+        </div>
+        <div className="mt-2 flex gap-1"><span className="h-1 w-8 bg-charcoal/25" /><span className="h-1 w-3 bg-bronze/60" /></div>
+      </motion.div>
+
+      <motion.div
+        className="absolute right-4 top-[26rem] w-32 border border-charcoal/20 bg-ivory/80 p-2 opacity-55 md:hidden"
+        animate={reduceMotion ? undefined : { x: [0, -36, -36, 0], y: [0, 0, 36, 0] }}
+        transition={{ duration: 19, times: [0, 0.36, 0.7, 1], repeat: Infinity, ease }}
+      >
+        <div className="mb-2 text-[0.38rem] uppercase tracking-[0.16em] text-charcoal/45">12-col system</div>
+        <div className="grid grid-cols-4 gap-1">
+          <span className="col-span-2 h-5 border border-charcoal/20" />
+          <span className="h-5 border border-charcoal/20" />
+          <span className="h-5 border border-charcoal/20" />
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute left-[9%] right-[-8%] top-[27%] h-px bg-charcoal/15"
+        animate={reduceMotion ? undefined : { x: [-72, 72, -72] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <span className="absolute -top-2 right-[24%] h-4 w-[72px] bg-bronze/70" />
+        <span className="absolute -top-1 left-[48%] h-2 w-2 bg-charcoal/70" />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-[-8%] right-[18%] top-[8%] w-px bg-charcoal/15"
+        animate={reduceMotion ? undefined : { y: [-72, 72, -72] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <span className="absolute left-[-7px] top-[34%] h-[72px] w-3.5 bg-charcoal/80" />
+        <span className="absolute left-[-3px] top-[68%] h-6 w-1.5 bg-bronze/70" />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-[-3%] top-[11%] hidden h-[51%] w-[43%] border border-charcoal/30 bg-ivory p-2 shadow-[18px_22px_0_rgba(182,173,160,.42)] md:block"
+        animate={reduceMotion ? undefined : { x: [0, 0, -72, -72, -72, 0, 0], y: [0, 0, 0, 0, 72, 72, 0] }}
+        transition={{ duration: 14, times: [0, 0.12, 0.3, 0.42, 0.62, 0.8, 1], repeat: Infinity, ease }}
+      >
+        <div className="flex h-8 items-center justify-between bg-charcoal px-3 text-[0.46rem] uppercase tracking-[0.2em] text-white/45"><span>Architecture / portfolio</span><span>Desktop</span></div>
+        <div className="grid h-[calc(100%-2rem)] grid-cols-[3rem_1fr] gap-2 pt-2">
+          <div className="border-r border-stone p-2">{[1, 2, 3, 4].map((item) => <span key={item} className="mb-3 block h-px bg-charcoal/35" style={{ width: `${100 - item * 12}%` }} />)}</div>
+          <div className="grid grid-cols-3 gap-2 overflow-hidden">
+            <img src="/images/hero.webp" alt="" className="col-span-2 row-span-2 h-full w-full object-cover" />
+            <span className="bg-taupe/70" /><span className="bg-stone" /><span className="col-span-2 bg-charcoal" /><span className="bg-bronze/70" />
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-[18%] right-[40%] hidden h-[35%] w-[10%] min-w-28 border-2 border-charcoal bg-ivory p-1.5 shadow-[10px_12px_0_rgba(138,130,103,.35)] lg:block"
+        animate={reduceMotion ? undefined : { x: [0, 0, 72, 72, 72, 0, 0], y: [0, 0, 0, 0, -72, -72, 0] }}
+        transition={{ duration: 13, times: [0, 0.1, 0.28, 0.4, 0.6, 0.8, 1], repeat: Infinity, ease }}
+      >
+        <div className="mb-1.5 flex h-5 items-center justify-between bg-charcoal px-1.5"><span className="h-px w-4 bg-white/60" /><span className="h-1 w-1 rounded-full bg-bronze" /></div>
+        <img src="/images/folio.webp" alt="" className="h-[62%] w-full object-cover" />
+        <span className="mt-2 block h-px w-full bg-charcoal/35" /><span className="mt-2 block h-px w-2/3 bg-charcoal/20" />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-[7%] top-[7%] hidden border border-charcoal/25 bg-ivory p-4 text-charcoal shadow-[8px_8px_0_rgba(26,26,26,.12)] xl:block"
+        animate={reduceMotion ? undefined : { x: [0, 0, -72, -72, 0, 0], y: [0, 0, 0, 72, 72, 0] }}
+        transition={{ duration: 16, times: [0, 0.16, 0.34, 0.52, 0.72, 1], repeat: Infinity, ease }}
+      >
+        <p className="text-[0.48rem] uppercase tracking-[0.2em] text-charcoal/45">Design tokens</p>
+        <div className="mt-3 grid grid-cols-5 gap-1.5">{['bg-ivory', 'bg-stone', 'bg-taupe', 'bg-bronze', 'bg-white/20'].map((color) => <span key={color} className={`h-5 w-5 ${color}`} />)}</div>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-[18%] right-[5%] hidden w-[24%] border border-charcoal/25 bg-charcoal p-5 text-white/45 shadow-[10px_10px_0_rgba(138,130,103,.35)] xl:block"
+        animate={reduceMotion ? undefined : { x: [0, 0, -72, -72, 0, 0], y: [0, 0, 0, -72, -72, 0] }}
+        transition={{ duration: 15, times: [0, 0.14, 0.34, 0.52, 0.72, 1], repeat: Infinity, ease }}
+      >
+        <div className="flex items-center justify-between text-[0.48rem] uppercase tracking-[0.2em]"><span>Responsive structure</span><span>12 / 04</span></div>
+        <div className="mt-5 grid grid-cols-4 gap-2">{[1, 2, 3, 4, 5, 6, 7, 8].map((item) => <motion.span key={item} className={`h-8 border border-white/15 ${item === 1 || item === 6 ? 'col-span-2' : ''}`} animate={reduceMotion ? undefined : { opacity: [0.25, 0.7, 0.25] }} transition={{ duration: 3.5, delay: item * 0.18, repeat: Infinity, ease: 'easeInOut' }} />)}</div>
+      </motion.div>
+    </div>
   )
 }
 
@@ -500,8 +662,6 @@ function App() {
   const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.25 })
-  const heroImageY = useTransform(scrollYProgress, [0, 0.16], [0, 18])
-  const heroImageScale = useTransform(scrollYProgress, [0, 0.16], [1, 1.018])
 
   const handleNavClick = () => setMenuOpen(false)
 
@@ -632,11 +792,12 @@ function App() {
       </header>
 
       <main id="main">
-        <section data-surface="ivory" className="page-grid grid min-h-[calc(100svh-82px)] grid-cols-1 border-b border-stone lg:min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex min-w-0 flex-col justify-between gap-7 py-8 lg:gap-10 lg:py-12 lg:pr-16 xl:py-16">
-            <div>
+        <section data-surface="ivory" className="relative min-h-[calc(100svh-82px)] overflow-hidden bg-ivory text-charcoal lg:min-h-screen">
+          <HeroDesignCanvas />
+          <div className="page-grid relative z-20 flex min-h-[calc(100svh-82px)] flex-col justify-between pb-36 pt-10 lg:min-h-screen lg:pb-40 lg:pt-16">
+            <div className="max-w-5xl">
               <motion.p
-                className="mb-8 flex items-center gap-3 text-[0.62rem] font-medium uppercase tracking-[0.24em] text-charcoal/55"
+                className="mb-8 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal/55"
                 initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, delay: 0.04, ease }}
@@ -648,56 +809,21 @@ function App() {
               <SplitHeadline />
             </div>
             <motion.div
-              className="grid max-w-3xl gap-7 border-t border-stone pt-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end"
+              className="grid max-w-3xl gap-6 border-t border-charcoal/25 pt-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end"
               initial={reduceMotion ? false : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.42, ease }}
             >
-              <p className="max-w-[36rem] text-[0.9rem] leading-7 text-charcoal/65 md:text-[0.95rem]">
-                Brdge helps design studios turn their work into a refined digital presence that builds trust, improves perception, and brings qualified project enquiries.
+              <p className="max-w-[35rem] text-[0.88rem] leading-7 text-charcoal/68 md:text-[0.95rem]">
+                Brdge turns architectural work into a refined digital system that builds trust, improves perception, and creates qualified project enquiries.
               </p>
-              <div className="flex flex-wrap gap-5 md:flex-col md:items-start">
+              <div className="flex flex-wrap gap-4 md:flex-col md:items-start">
                 <a href="#review" className="button-solid">Request Website Review</a>
                 <TextLink href="#approach">View Approach</TextLink>
               </div>
             </motion.div>
           </div>
-          <motion.figure
-            className="hero-image relative min-h-[38svh] overflow-hidden md:min-h-[48svh] lg:-mr-[max(1.5rem,calc((100vw-1440px)/2))] lg:min-h-full"
-            initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(0 0 0 10%)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
-            transition={{ duration: 1.05, delay: 0.16, ease }}
-          >
-            <motion.img
-              src="/images/studio-hero.jpg"
-              alt="A responsive architecture portfolio website system shown across desktop and mobile canvases"
-              className="h-[104%] w-full object-cover object-center"
-              fetchPriority="high"
-              style={reduceMotion ? undefined : { y: heroImageY, scale: heroImageScale }}
-            />
-            <motion.div
-              className="absolute left-5 top-5 border border-charcoal/15 bg-ivory/95 px-4 py-3 text-[0.56rem] uppercase tracking-[0.2em]"
-              animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            >Responsive portfolio system</motion.div>
-            <motion.div
-              className="absolute bottom-16 right-5 grid grid-cols-3 gap-1.5 bg-charcoal p-3"
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.8, ease }}
-              aria-hidden="true"
-            >
-              {['bg-ivory', 'bg-taupe', 'bg-bronze', 'bg-stone', 'bg-white', 'bg-charcoal'].map((color) => <span key={color} className={`h-3 w-3 ${color}`} />)}
-            </motion.div>
-            <motion.span
-              className="absolute bottom-0 left-0 top-0 w-px bg-bronze/80"
-              initial={reduceMotion ? false : { scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 1.2, delay: 0.55, ease }}
-              aria-hidden="true"
-            />
-            <figcaption className="absolute bottom-0 left-0 bg-ivory px-4 py-3 text-[0.65rem] uppercase tracking-[0.22em]">Strategy / design / build / refine</figcaption>
-          </motion.figure>
+          <HeroWorkflow />
         </section>
 
         <section data-surface="parchment" className="page-grid section-space grid gap-14 border-b border-stone lg:grid-cols-12" aria-labelledby="problem-title">
